@@ -16,6 +16,7 @@ import LoanTable from './LoanTable'
 import TotalAssets from './DashboardStatSquares/TotalAssets'
 import TotalAppreciation from './DashboardStatSquares/TotalAppreciation'
 import MonthlyCashFlow from './DashboardStatSquares/MonthlyCashFlow'
+import DashboardChart from './DashboardChart'
 
 
 //Pages for navigation
@@ -232,7 +233,9 @@ export default function DashboardMainLayout({ loans }: Props) {
                             <div className='bg-red-200 col-span-1 h-32 rounded-2xl'>
                                 <MonthlyCashFlow totalMonthlyCashFlowValue={totalMonthlyCashFlowValue} />
                             </div>
-                            <div className='bg-gray-50 col-span-3 h-64 rounded-2xl'></div>
+                            <div className='bg-gray-50 col-span-3 h-64 rounded-2xl'>
+                                <DashboardChart />
+                            </div>
 
                             <div className="col-span-3 grid  grid-cols-4 gap-12">
                                 <div className='bg-red-300 col-span-1 h-12 rounded-2xl'></div>
