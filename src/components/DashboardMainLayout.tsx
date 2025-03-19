@@ -1,7 +1,5 @@
 
 
-'use client'
-
 import { useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, TransitionChild } from '@headlessui/react'
 import {
@@ -15,7 +13,12 @@ import {
     XMarkIcon,
 } from '@heroicons/react/24/outline'
 import LoanTable from './LoanTable'
+import TotalAssets from './DashboardStatSquares/TotalAssets'
+import TotalAppreciation from './DashboardStatSquares/TotalAppreciation'
+import MonthlyCashFlow from './DashboardStatSquares/MonthlyCashFlow'
 
+
+//Pages for navigation
 const navigation = [
     { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
     { name: 'Team', href: '#', icon: UsersIcon, current: false },
@@ -26,7 +29,7 @@ const navigation = [
 ]
 
 
-
+//Props for Typescript (just placeholder of any currently)
 type Props = {
     loans: any
 }
@@ -35,9 +38,59 @@ function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ')
 }
 
+
+
+
+
 export default function DashboardMainLayout({ loans }: Props) {
 
     const [sidebarOpen, setSidebarOpen] = useState(false)
+
+
+
+    // //Total Assets Calculation
+    let totalAssetValue = 0;
+    loans.map((loan: any) => {
+        totalAssetValue += loan.appraisal
+    })
+
+    //Total Appreciation Function
+    const totalAppreciationFunction = (loans: any) => {
+        let totalOriginalBalance = 0;
+
+        loans.map((loan: any) => {
+            totalOriginalBalance += loan.original_balance
+        })
+
+        return (
+            totalAssetValue - totalOriginalBalance
+        )
+    }
+    let totalAppreciatedValue = totalAppreciationFunction(loans)
+
+    //Monthly Cash Flow Function
+    const totalMonthlyCashFlowFunction = (loans: any) => {
+        let monthlyCashFlow = 0;
+
+        loans.map((loan: any) => {
+            monthlyCashFlow += loan.payment
+        })
+
+        return monthlyCashFlow
+
+    }
+    let totalMonthlyCashFlowValue = totalMonthlyCashFlowFunction(loans)
+
+
+
+
+
+
+
+
+
+
+
 
     return (
         <>
@@ -165,9 +218,37 @@ export default function DashboardMainLayout({ loans }: Props) {
 
 
                 {/* This is where all of our content goes, basically think of this as our App.tsx file now */}
-                <main className="py-10 lg:pl-72">
+                <main className="py-10 lg:pl-72 bg-gray-200">
                     <div className="px-4 sm:px-6 lg:px-8">
-                        <LoanTable loans={loans} />
+                        <div className="grid  grid-cols-3 gap-12">
+                            <div className='bg-gray-50 col-span-1 h-32 rounded-2xl'>
+
+                                <TotalAssets totalAssetValue={totalAssetValue} />
+                            </div>
+
+                            <div className='bg-gray-50 col-span-1 h-32 rounded-2xl'>
+                                <TotalAppreciation totalAppreciatedValue={totalAppreciatedValue} />
+                            </div>
+                            <div className='bg-red-200 col-span-1 h-32 rounded-2xl'>
+                                <MonthlyCashFlow totalMonthlyCashFlowValue={totalMonthlyCashFlowValue} />
+                            </div>
+                            <div className='bg-gray-50 col-span-3 h-64 rounded-2xl'></div>
+
+                            <div className="col-span-3 grid  grid-cols-4 gap-12">
+                                <div className='bg-red-300 col-span-1 h-12 rounded-2xl'></div>
+                                <div className='bg-red-300 col-span-1 h-12 rounded-2xl'></div>
+                                <div className='bg-red-300 col-span-1 h-12 rounded-2xl'></div>
+                                <div className='bg-red-300 col-span-1 h-12 rounded-2xl'></div>
+
+                            </div>
+                            <div className='bg-gray-50 col-span-3 rounded-2xl'>
+                                <h2>All Transactions</h2>
+                                <LoanTable loans={loans} />
+                            </div>
+
+                        </div>
+
+                        {/* <LoanTable loans={loans} /> */}
 
 
 
