@@ -233,8 +233,11 @@ export default function DashboardMainLayout({ loans }: Props) {
                             <div className='bg-red-200 col-span-1 h-32 rounded-2xl'>
                                 <MonthlyCashFlow totalMonthlyCashFlowValue={totalMonthlyCashFlowValue} />
                             </div>
-                            <div className='bg-gray-50 col-span-3 h-64 rounded-2xl'>
-                                <DashboardChart />
+                            <div className='bg-gray-50 col-span-3 h-72 rounded-2xl'>
+
+
+                                <DashboardChart loans={loans} />
+
                             </div>
 
                             <div className="col-span-3 grid  grid-cols-4 gap-12">
