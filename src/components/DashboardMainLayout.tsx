@@ -1,6 +1,6 @@
 
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, TransitionChild } from '@headlessui/react'
 import {
     Bars3Icon,
@@ -17,6 +17,7 @@ import TotalAssets from './DashboardStatSquares/TotalAssets'
 import TotalAppreciation from './DashboardStatSquares/TotalAppreciation'
 import MonthlyCashFlow from './DashboardStatSquares/MonthlyCashFlow'
 import DashboardChart from './DashboardChart'
+import FilterByPool from './DashboardFilterComponents/FilterByPool'
 
 
 //Pages for navigation
@@ -45,7 +46,11 @@ function classNames(...classes: any[]) {
 
 export default function DashboardMainLayout({ loans }: Props) {
 
+    console.log(loans)
+
     const [sidebarOpen, setSidebarOpen] = useState(false)
+    const [filteredLoans, setFilteredLoans] = useState<any>([])
+    // const [selectedPool, setSelectedPool] = useState('All')
 
 
 
@@ -81,6 +86,43 @@ export default function DashboardMainLayout({ loans }: Props) {
 
     }
     let totalMonthlyCashFlowValue = totalMonthlyCashFlowFunction(loans)
+
+
+
+
+
+    //Filtering the table: states and functions_______________________________
+
+    //// looping through our loans array to get all of the pool names in the database
+    const allPools: { name: string; }[] = [
+        { name: 'All' }
+    ]
+    const getAllPoolNames = (loans: any) => {
+        for (let i = 0; i < loans.length; i++) {
+            const foundName = allPools.find(obj => obj.name === loans[i].pool)
+            if (!foundName) {
+                allPools.push({ name: loans[i].pool })
+            }
+        }
+    }
+    getAllPoolNames(loans)
+
+    // //the state for our filter by pool dropdown (has to be assigend here so we can use the first idnex as the initial state value)
+    const [selectedPool, setSelectedPool] = useState(allPools[0])
+
+    ////Filtering Loans array by the selectedPool anytime the selectedPool state is changed
+    useEffect(() => {
+        if (selectedPool.name === 'All') {
+            // const newLoanData = [...loans]
+            setFilteredLoans([...loans])
+        }
+        else {
+            const newLoanData = loans.filter((loan: any) => {
+                return (loan.pool === selectedPool.name)
+            })
+            setFilteredLoans(newLoanData)
+        }
+    }, [loans, selectedPool])
 
 
 
@@ -234,14 +276,13 @@ export default function DashboardMainLayout({ loans }: Props) {
                                 <MonthlyCashFlow totalMonthlyCashFlowValue={totalMonthlyCashFlowValue} />
                             </div>
                             <div className='bg-gray-50 col-span-3 h-72 rounded-2xl'>
-
-
                                 <DashboardChart loans={loans} />
-
                             </div>
 
                             <div className="col-span-3 grid  grid-cols-4 gap-12">
-                                <div className='bg-red-300 col-span-1 h-12 rounded-2xl'></div>
+                                <div className='bg-red-300 col-span-1 h-12 rounded-2xl'>
+                                    <FilterByPool allPools={allPools} selectedPool={selectedPool} setSelectedPool={setSelectedPool} />
+                                </div>
                                 <div className='bg-red-300 col-span-1 h-12 rounded-2xl'></div>
                                 <div className='bg-red-300 col-span-1 h-12 rounded-2xl'></div>
                                 <div className='bg-red-300 col-span-1 h-12 rounded-2xl'></div>
@@ -249,7 +290,7 @@ export default function DashboardMainLayout({ loans }: Props) {
                             </div>
                             <div className='bg-gray-50 col-span-3 rounded-2xl'>
                                 <h2>All Transactions</h2>
-                                <LoanTable loans={loans} />
+                                <LoanTable loans={filteredLoans} />
                             </div>
 
                         </div>

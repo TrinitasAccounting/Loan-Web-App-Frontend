@@ -8,6 +8,7 @@ function App() {
 
   const [loans, setLoans] = useState([])
 
+
   //GET fetch to backend, getting all loan data from our database__________________________________________________
   const isDevelopment = import.meta.env.MODE === 'development'
   const myBaseURL = isDevelopment ? import.meta.env.VITE_API_BASE_URL_LOCAL : import.meta.env.VITE_API_BASE_URL_DEPLOY
@@ -24,6 +25,8 @@ function App() {
   useEffect(() => {
     fetchLoans()
   }, [])
+
+
 
 
 
