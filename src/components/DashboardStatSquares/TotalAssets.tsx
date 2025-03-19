@@ -14,7 +14,7 @@ export default function TotalAssets({ totalAssetValue }: Props) {
 
             <dl className="w-full h-full ">
                 <div className=" sm:p-8">
-                    <dt className="truncate text-sm font-medium text-gray-500">Total Assets</dt>
+                    <dt className="truncate text-sm font-medium text-gray-500">Portfolio Asset's</dt>
                     <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">$ {totalAssetValue}</dd>
                 </div>
             </dl>

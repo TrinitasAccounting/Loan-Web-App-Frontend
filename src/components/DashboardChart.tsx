@@ -68,7 +68,17 @@ export default function DashboardChart({ loans }: Props) {
 
         // then we can loop through the sum of each year array and running a cummulative total by year
         const allYearsData = {
-            "2004": cummulativeYearlyTotals[2004],
+            // { year: "2004", amount: cummulativeYearlyTotals[2004] },
+            // { year: "2005", amount: cummulativeYearlyTotals[2006] },
+            // { year: "2006", amount: cummulativeYearlyTotals[2006] },
+            // { year: "2007", amount: cummulativeYearlyTotals[2006] },
+
+            // { '2005': cummulativeYearlyTotals[2004] },
+            // { '2005': cummulativeYearlyTotals[2004] },
+            // { '2006': cummulativeYearlyTotals[2006] },
+            // { '2007': cummulativeYearlyTotals[2006] },
+            // { '2008': cummulativeYearlyTotals[2006] },
+            '2004': cummulativeYearlyTotals[2004],
             '2005': cummulativeYearlyTotals[2004],
             '2006': cummulativeYearlyTotals[2006],
             '2007': cummulativeYearlyTotals[2006],
@@ -95,14 +105,19 @@ export default function DashboardChart({ loans }: Props) {
         //Looping through to create a dataset for each year
         // let loanDataSet = []
         for (const key in allYearsData) {
-            loanDataSet.push({ date: new Date(Number(key), 0, 1), totalAppraisalValue: allYearsData[key] })
+            let myKey: any = key as any
+            loanDataSet.push({ date: new Date(Number(key), 0, 1), totalAppraisalValue: allYearsData[myKey as typeof allYearsData] })
         }
+
+        // for (let i = 0; i < allYearsData.length; i++) {
+        //     loanDataSet.push({ date: new Date(Number(allYearsData[i]['year']), 0, 1), totalAppraisalValue: allYearsData[i]['amount'] })
+        // }
 
         return (loanDataSet)
 
     }
 
-    const result = sumAmountsByYear(loans)
+    // const result = sumAmountsByYear(loans)
 
 
     return (
