@@ -16,8 +16,9 @@ import LoanTable from './LoanTable'
 import TotalAssets from './DashboardStatSquares/TotalAssets'
 import TotalAppreciation from './DashboardStatSquares/TotalAppreciation'
 import MonthlyCashFlow from './DashboardStatSquares/MonthlyCashFlow'
-import DashboardChart from './DashboardChart'
 import FilterByPool from './DashboardFilterComponents/FilterByPool'
+import DashboardAcquisitionsLineChart from './DashboardAcquisitionsLineChart'
+import DashboardROIBarChart from './DashboardROIBarChart'
 
 
 
@@ -197,14 +198,7 @@ export default function DashboardMainLayout({ loans }: Props) {
 
     return (
         <>
-            {/*
-        This example requires updating your template:
 
-        ```
-        <html class="h-full bg-white">
-        <body class="h-full">
-        ```
-      */}
             <div>
                 {/* Mobile version - Larger section compressed, contains the transitions for the side bar opening and the loop to output */}
                 <Dialog open={sidebarOpen} onClose={setSidebarOpen} className="relative z-50 lg:hidden">
@@ -323,7 +317,7 @@ export default function DashboardMainLayout({ loans }: Props) {
                 {/* This is where all of our content goes, basically think of this as our App.tsx file now */}
                 <main className="py-10 lg:pl-72 bg-gray-200">
                     <div className="px-4 sm:px-6 lg:px-8">
-                        <div className="grid  grid-cols-3 gap-12">
+                        <div className="grid  grid-cols-3 gap-6">
                             <div className='bg-gray-50 col-span-1 h-32 rounded-2xl'>
 
                                 <TotalAssets totalAssetValue={totalAssetValue} />
@@ -335,8 +329,11 @@ export default function DashboardMainLayout({ loans }: Props) {
                             <div className='bg-red-200 col-span-1 h-32 rounded-2xl'>
                                 <MonthlyCashFlow totalMonthlyCashFlowValue={totalMonthlyCashFlowValue} />
                             </div>
-                            <div className='bg-gray-50 col-span-3 h-72 rounded-2xl'>
-                                <DashboardChart loans={loans} />
+                            <div className='bg-gray-50 col-span-3 h-64 rounded-2xl'>
+                                <DashboardAcquisitionsLineChart loans={loans} />
+                            </div>
+                            <div className='bg-gray-50 col-span-3 h-64 rounded-2xl'>
+                                <DashboardROIBarChart loans={filteredLoans} />
                             </div>
 
                             {/* <div className="col-span-3 grid  grid-cols-4 gap-12">

@@ -10,7 +10,7 @@ type Props = {
 
 
 
-export default function DashboardChart({ loans }: Props) {
+export default function DashboardAcquisitionsLineChart({ loans }: Props) {
 
 
 
