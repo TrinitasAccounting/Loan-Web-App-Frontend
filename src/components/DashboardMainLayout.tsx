@@ -101,11 +101,6 @@ export default function DashboardMainLayout({ loans }: Props) {
     }
     totalAssetFunction(filteredLoansWithStateBalanceYear)
 
-
-    // filteredLoans.map((loan: any) => {
-    //     totalAssetValue += loan.appraisal
-    // })
-
     //Total Appreciation Function
     const totalAppreciationFunction = (loans: any) => {
         let totalOriginalBalance = 0;
@@ -175,68 +170,6 @@ export default function DashboardMainLayout({ loans }: Props) {
             // console.log([...newLoanData])
         }
     }, [loans, selectedPool])
-
-    // console.log(newFilteredLoans)
-
-
-
-    // //Filter the table by State: states and functions_____________________________________________________
-
-    // const handleChange = (event: any) => {
-    //     setStateInput(event.target.value)
-    // }
-    // console.log(stateInput)
-
-    // const filteredLoansWithAllFilters = filteredLoans.filter((loan: any) => {
-    //     return (loan.state.toLowerCase().startsWith(stateInput.toLowerCase()))
-    // })
-
-
-
-    // const [stateInput, setStateInput] = useState("")
-    // const [filteredLoansAndByState, setFilteredLoansAndByState] = useState<any>([])
-
-    // // setFilteredLoansAndByState([...filteredLoans])
-
-    // const handleChange = (event: any) => {
-    //     setStateInput(event.target.value)
-    // }
-
-    // const filterLoansByState = () => {
-
-    //     const newData = loans.filter((loan: any) => {
-    //         return (loan.state.toLowerCase().startsWith(stateInput.toLowerCase()))
-    //     })
-    //     // setSelectedPool(allPools[0])
-    //     setFilteredLoans([...loans])
-    //     setFilteredLoans(newData)
-
-    // }
-
-    // useEffect(() => {
-
-    //     filterLoansByState()
-    // }, [stateInput])
-    // filterLoansByState()
-    // const allStateNames: string[] = ['All', 'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']
-    // const [selectedState, setSelectedState] = useState(allStateNames[0])
-
-    // ////Filtering Loans array by the selectedState anytime the selectedState is changed
-    // useEffect(() => {
-    //     if (selectedState === 'All') {
-    //         // const newLoanData = [...filteredLoans]
-    //         setFilteredLoans([...filteredLoans])
-    //     }
-    //     else {
-    //         const newLoanData = loans.filter((loan: any) => {
-    //             return (loan.state === selectedState)
-    //         })
-    //         // setFilteredLoans(newLoanData)
-    //     }
-    // }, [selectedState])
-
-
-
 
 
 
@@ -369,21 +302,28 @@ export default function DashboardMainLayout({ loans }: Props) {
                     <div className="px-4 sm:px-6 lg:px-8">
                         <div className="grid  grid-cols-3 gap-6">
                             <div className='bg-gray-50 col-span-1 h-32 rounded-2xl'>
-
                                 <TotalAssets totalAssetValue={totalAssetValue} />
                             </div>
 
                             <div className='bg-gray-50 col-span-1 h-32 rounded-2xl'>
+
                                 <TotalAppreciation totalAppreciatedValue={totalAppreciatedValue} />
                             </div>
                             <div className='bg-gray-50 col-span-1 h-32 rounded-2xl'>
+
                                 <MonthlyCashFlow totalMonthlyCashFlowValue={totalMonthlyCashFlowValue} />
                             </div>
-                            <div className='bg-gray-50 col-span-3 h-64 rounded-2xl'>
+
+                            {/* TOTAL ASSETS IN PORTFOLIO LINE CHART */}
+                            <div className='bg-gray-50 col-span-3 h-64 rounded-2xl pl-2'>
+
                                 <h1 className='text-center text-gray-600 font-bold'>Total Assets in Portfolio by Year</h1>
                                 <DashboardAcquisitionsLineChart loans={filteredLoansWithStateBalanceYear} />
                             </div>
-                            <div className='bg-gray-50 col-span-3 h-64 rounded-2xl'>
+
+                            {/* CUMULATIVE ROI % BAR CHART */}
+                            <div className='bg-gray-50 col-span-3 h-64 rounded-2xl pl-2'>
+
                                 <h1 className='text-center text-gray-600 font-bold'>Cumulative ROI (%) by Year</h1>
                                 <DashboardROIBarChart loans={filteredLoansWithStateBalanceYear} />
                             </div>
@@ -397,12 +337,15 @@ export default function DashboardMainLayout({ loans }: Props) {
                                         <p className="mt-2 text-sm text-gray-700">
                                             A table to display all loans inside of our portfolio</p>
                                     </div>
+
+                                    {/* FILTER BY POOL COMPONENT */}
                                     <div className=' border-gray-300 col-span-1 mt-2 mr-2 rounded-xl'>
                                         <FilterByPool allPools={allPools} selectedPool={selectedPool} setSelectedPool={setSelectedPool} />
 
                                     </div>
+
+                                    {/* FILTER BY STATE */}
                                     <div className=' border-gray-300 col-span-1 mt-2 mr-2 rounded-xl'>
-                                        {/* <FilterByPool allPools={allPools} selectedPool={selectedPool} setSelectedPool={setSelectedPool} /> */}
                                         <div>
                                             <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
                                                 Search by State
@@ -420,11 +363,11 @@ export default function DashboardMainLayout({ loans }: Props) {
                                             </div>
                                         </div>
                                     </div>
+
+                                    {/* FILTER BY ORIGINAL BALANCE */}
                                     <div className=' border-gray-300 col-span-1 mt-2 mr-2 rounded-xl'>
-                                        {/* <FilterByPool allPools={allPools} selectedPool={selectedPool} setSelectedPool={setSelectedPool} /> */}
                                         <div>
                                             <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
-                                                {/* Original Balance Greater Than */}
                                                 Original Bal. Greater Than
                                             </label>
                                             <div className="mt-2">
@@ -440,8 +383,10 @@ export default function DashboardMainLayout({ loans }: Props) {
                                             </div>
                                         </div>
                                     </div>
+
+                                    {/* FILTER BY YEAR */}
                                     <div className=' border-gray-300 col-span-1 mt-2 mr-2 rounded-xl'>
-                                        {/* <FilterByYear allPools={allPools} selectedPool={selectedPool} setSelectedPool={setSelectedPool} /> */}
+
                                         <div>
                                             <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
 
@@ -462,10 +407,9 @@ export default function DashboardMainLayout({ loans }: Props) {
                                     </div>
                                 </div>
 
+                                {/* LOAN TABLE COMPONENT */}
                                 <LoanTable loans={filteredLoansWithStateBalanceYear} />
                             </div>
-
-
                         </div>
                     </div>
                 </main>
