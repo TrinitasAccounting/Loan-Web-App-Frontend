@@ -11,14 +11,14 @@ type Props = {
     setSelectedPool: any
 }
 
-export default function FilterByPool({ allPools, selectedPool, setSelectedPool }: Props) {
+export default function FilterByYear({ allPools, selectedPool, setSelectedPool }: Props) {
 
 
     return (
-        <Listbox value={selectedPool} onChange={setSelectedPool} >
-            <Label className="block ml-3 text-sm/5 font-medium text-gray-900">Filter by Loan Pool</Label>
-            <div className="relative mt-2 ml-3">
-                <ListboxButton className="grid border-1 border-gray-300 w-full sm:h-10 cursor-default grid-cols-1 rounded-xl py-1.5 pl-3 pr-2 text-left text-gray-900  -outline-offset-1 outline-gray-300 hover:bg-gray-100 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+        <Listbox value={selectedPool} onChange={setSelectedPool}>
+            <Label className="block ml-3 text-sm/5 font-medium text-gray-900">Filter by Year</Label>
+            <div className="relative mt-1 ml-3">
+                <ListboxButton className="grid w-full sm:h-10 cursor-default grid-cols-1 rounded-xl py-1.5 pl-3 pr-2 text-left text-gray-900  -outline-offset-1 outline-gray-300 hover:bg-blue-50 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                     <span className="col-start-1 row-start-1 truncate pr-6">{selectedPool.name}</span>
                     <ChevronUpDownIcon
                         aria-hidden="true"

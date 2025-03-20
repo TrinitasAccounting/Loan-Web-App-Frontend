@@ -19,6 +19,7 @@ import MonthlyCashFlow from './DashboardStatSquares/MonthlyCashFlow'
 import FilterByPool from './DashboardFilterComponents/FilterByPool'
 import DashboardAcquisitionsLineChart from './DashboardAcquisitionsLineChart'
 import DashboardROIBarChart from './DashboardROIBarChart'
+import FilterByYear from './DashboardFilterComponents/FilterByYear'
 
 
 
@@ -57,8 +58,44 @@ export default function DashboardMainLayout({ loans }: Props) {
 
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [filteredLoans, setFilteredLoans] = useState<any>([])
-    // const [stateInput, setStateInput] = useState("")
+    const [stateInput, setStateInput] = useState("")
+    const [balanceInput, setBalanceInput] = useState("")
+    const [yearInput, setYearInput] = useState("")
     // const [selectedPool, setSelectedPool] = useState('All')
+
+    //Filter the table by State: states and functions_________________________________________________________________
+
+    const handleStateChange = (event: any) => {
+        setStateInput(event.target.value)
+    }
+
+    const filteredLoansWithAllFilters = filteredLoans.filter((loan: any) => {
+        return (loan.state.toLowerCase().startsWith(stateInput.toLowerCase()))
+    })
+
+    //Filtering the table by balance: states and functions ____________________________________________________________
+    const handleBalanceChange = (event: any) => {
+        setBalanceInput(event.target.value)
+    }
+
+    const filteredLoansWithStateBalance = filteredLoansWithAllFilters.filter((loan: any) => {
+        return (loan.original_balance > Number(balanceInput))
+    })
+
+
+    //Filtering the table by note_date: states and functions ____________________________________________________________
+    const handleYearChange = (event: any) => {
+        setYearInput(event.target.value)
+    }
+
+    const filteredLoansWithStateBalanceYear = filteredLoansWithStateBalance.filter((loan: any) => {
+        return (loan.note_date.startsWith(yearInput))
+    })
+
+    // console.log(filteredLoansWithStateBalanceDate)
+
+
+
 
 
 
@@ -70,7 +107,7 @@ export default function DashboardMainLayout({ loans }: Props) {
             totalAssetValue += loan.appraisal
         })
     }
-    totalAssetFunction(filteredLoans)
+    totalAssetFunction(filteredLoansWithStateBalanceYear)
 
 
     // filteredLoans.map((loan: any) => {
@@ -89,7 +126,7 @@ export default function DashboardMainLayout({ loans }: Props) {
             totalAssetValue - totalOriginalBalance
         )
     }
-    let totalAppreciatedValue = totalAppreciationFunction(filteredLoans)
+    let totalAppreciatedValue = totalAppreciationFunction(filteredLoansWithStateBalanceYear)
 
     //Monthly Cash Flow Function
     const totalMonthlyCashFlowFunction = (loans: any) => {
@@ -102,7 +139,7 @@ export default function DashboardMainLayout({ loans }: Props) {
         return monthlyCashFlow
 
     }
-    let totalMonthlyCashFlowValue = totalMonthlyCashFlowFunction(filteredLoans)
+    let totalMonthlyCashFlowValue = totalMonthlyCashFlowFunction(filteredLoansWithStateBalanceYear)
 
 
 
@@ -151,7 +188,19 @@ export default function DashboardMainLayout({ loans }: Props) {
 
 
 
-    //Filter the table by State: states and functions_____________________________________________________
+    // //Filter the table by State: states and functions_____________________________________________________
+
+    // const handleChange = (event: any) => {
+    //     setStateInput(event.target.value)
+    // }
+    // console.log(stateInput)
+
+    // const filteredLoansWithAllFilters = filteredLoans.filter((loan: any) => {
+    //     return (loan.state.toLowerCase().startsWith(stateInput.toLowerCase()))
+    // })
+
+
+
     // const [stateInput, setStateInput] = useState("")
     // const [filteredLoansAndByState, setFilteredLoansAndByState] = useState<any>([])
 
@@ -340,55 +389,88 @@ export default function DashboardMainLayout({ loans }: Props) {
                             </div>
                             <div className='bg-gray-50 col-span-3 h-64 rounded-2xl'>
                                 <h1 className='text-center text-gray-600 font-bold'>Total Assets in Portfolio by Year</h1>
-                                <DashboardAcquisitionsLineChart loans={filteredLoans} />
+                                <DashboardAcquisitionsLineChart loans={filteredLoansWithStateBalanceYear} />
                             </div>
                             <div className='bg-gray-50 col-span-3 h-64 rounded-2xl'>
                                 <h1 className='text-center text-gray-600 font-bold'>Cumulative ROI (%) by Year</h1>
-                                <DashboardROIBarChart loans={filteredLoans} />
+                                <DashboardROIBarChart loans={filteredLoansWithStateBalanceYear} />
                             </div>
 
-                            {/* <div className="col-span-3 grid  grid-cols-4 gap-12">
-                                <div className='bg-gray-50 col-span-1 h-16 rounded-2xl'>
-                                    <FilterByPool allPools={allPools} selectedPool={selectedPool} setSelectedPool={setSelectedPool} />
-                                </div>
-                                <div className='bg-red-300 col-span-1 h-12 rounded-2xl'>
-                                    <FilterByState stateInput={stateInput} setStateInput={setStateInput} handleSetStateInput={handleSetStateInput} />
-                                    <div>
-                                        <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
-                                            State
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                id="state"
-                                                name="state"
-                                                value={stateInput}
-                                                onChange={handleChange}
-                                                type="text"
-                                                placeholder="Search by State"
-                                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='bg-red-300 col-span-1 h-12 rounded-2xl'></div>
-                                <div className='bg-red-300 col-span-1 h-12 rounded-2xl'></div>
-                            </div> */}
 
                             {/* LOANS TABLE SECTION */}
                             <div className='bg-gray-50 col-span-3 rounded-2xl'>
-                                <div className=' grid grid-cols-3'>
+                                <div className=' grid grid-cols-6'>
                                     <div className='bg-gray-50 col-span-2 px-8 pt-5'>
                                         <h1 className='text-base font-semibold text-gray-900'>Loans</h1>
                                         <p className="mt-2 text-sm text-gray-700">
                                             A table to display all loans inside of our portfolio</p>
                                     </div>
-                                    <div className='border-1 border-gray-300 col-span-1 mt-2 mr-2 rounded-xl'>
+                                    <div className=' border-gray-300 col-span-1 mt-2 mr-2 rounded-xl'>
                                         <FilterByPool allPools={allPools} selectedPool={selectedPool} setSelectedPool={setSelectedPool} />
 
                                     </div>
+                                    <div className=' border-gray-300 col-span-1 mt-2 mr-2 rounded-xl'>
+                                        {/* <FilterByPool allPools={allPools} selectedPool={selectedPool} setSelectedPool={setSelectedPool} /> */}
+                                        <div>
+                                            <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
+                                                Search by State
+                                            </label>
+                                            <div className="mt-2">
+                                                <input
+                                                    id="state"
+                                                    name="state"
+                                                    value={stateInput}
+                                                    onChange={handleStateChange}
+                                                    type="text"
+                                                    placeholder="State"
+                                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className=' border-gray-300 col-span-1 mt-2 mr-2 rounded-xl'>
+                                        {/* <FilterByPool allPools={allPools} selectedPool={selectedPool} setSelectedPool={setSelectedPool} /> */}
+                                        <div>
+                                            <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
+                                                {/* Original Balance Greater Than */}
+                                                Original Bal. Greater Than
+                                            </label>
+                                            <div className="mt-2">
+                                                <input
+                                                    id="balance"
+                                                    name="balance"
+                                                    value={balanceInput}
+                                                    onChange={handleBalanceChange}
+                                                    type="number"
+                                                    placeholder="Minimum Original Balance"
+                                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className=' border-gray-300 col-span-1 mt-2 mr-2 rounded-xl'>
+                                        {/* <FilterByYear allPools={allPools} selectedPool={selectedPool} setSelectedPool={setSelectedPool} /> */}
+                                        <div>
+                                            <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
+
+                                                Filter By Year
+                                            </label>
+                                            <div className="mt-2">
+                                                <input
+                                                    id="balance"
+                                                    name="balance"
+                                                    value={yearInput}
+                                                    onChange={handleYearChange}
+                                                    type="number"
+                                                    placeholder="Year Acquired"
+                                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <LoanTable loans={filteredLoans} />
+                                <LoanTable loans={filteredLoansWithStateBalanceYear} />
                             </div>
 
 
