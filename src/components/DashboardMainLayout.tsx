@@ -1,5 +1,5 @@
 
-
+//Imports, expand it to see all imports
 import { useEffect, useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, TransitionChild } from '@headlessui/react'
 import {
@@ -21,9 +21,7 @@ import DashboardAcquisitionsLineChart from './DashboardAcquisitionsLineChart'
 import DashboardROIBarChart from './DashboardROIBarChart'
 
 
-
-
-//Pages for navigation
+//Pages for navigation   (PLACEHOLDER PAGES)
 const navigation = [
     { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
     { name: 'Team', href: '#', icon: UsersIcon, current: false },
@@ -37,11 +35,6 @@ const navigation = [
 //Props for Typescript (just placeholder of any currently)
 type Props = {
     loans: any,
-    // newFilteredLoans: any,
-    // setNewFilteredLoans: any
-    // setLoans: (value: React.SetStateAction<never[]>) => void
-    // filteredLoans: any,
-    // setFilteredLoans: React.Dispatch<any>
 }
 
 function classNames(...classes: any[]) {
@@ -61,7 +54,6 @@ export default function DashboardMainLayout({ loans }: Props) {
     const [stateInput, setStateInput] = useState("")
     const [balanceInput, setBalanceInput] = useState("")
     const [yearInput, setYearInput] = useState("")
-    // const [selectedPool, setSelectedPool] = useState('All')
 
     //Filter the table by State: states and functions_________________________________________________________________
 
@@ -72,6 +64,7 @@ export default function DashboardMainLayout({ loans }: Props) {
     const filteredLoansWithAllFilters = filteredLoans.filter((loan: any) => {
         return (loan.state.toLowerCase().startsWith(stateInput.toLowerCase()))
     })
+
 
     //Filtering the table by balance: states and functions ____________________________________________________________
     const handleBalanceChange = (event: any) => {
@@ -92,7 +85,6 @@ export default function DashboardMainLayout({ loans }: Props) {
         return (loan.note_date.startsWith(yearInput))
     })
 
-    // console.log(filteredLoansWithStateBalanceDate)
 
 
 
