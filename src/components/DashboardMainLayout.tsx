@@ -64,9 +64,18 @@ export default function DashboardMainLayout({ loans }: Props) {
 
     // //Total Assets Calculation
     let totalAssetValue = 0;
-    loans.map((loan: any) => {
-        totalAssetValue += loan.appraisal
-    })
+    const totalAssetFunction = (loans: any) => {
+        totalAssetValue = 0;
+        loans.map((loan: any) => {
+            totalAssetValue += loan.appraisal
+        })
+    }
+    totalAssetFunction(filteredLoans)
+
+
+    // filteredLoans.map((loan: any) => {
+    //     totalAssetValue += loan.appraisal
+    // })
 
     //Total Appreciation Function
     const totalAppreciationFunction = (loans: any) => {
@@ -80,7 +89,7 @@ export default function DashboardMainLayout({ loans }: Props) {
             totalAssetValue - totalOriginalBalance
         )
     }
-    let totalAppreciatedValue = totalAppreciationFunction(loans)
+    let totalAppreciatedValue = totalAppreciationFunction(filteredLoans)
 
     //Monthly Cash Flow Function
     const totalMonthlyCashFlowFunction = (loans: any) => {
@@ -93,7 +102,7 @@ export default function DashboardMainLayout({ loans }: Props) {
         return monthlyCashFlow
 
     }
-    let totalMonthlyCashFlowValue = totalMonthlyCashFlowFunction(loans)
+    let totalMonthlyCashFlowValue = totalMonthlyCashFlowFunction(filteredLoans)
 
 
 
@@ -330,7 +339,7 @@ export default function DashboardMainLayout({ loans }: Props) {
                                 <MonthlyCashFlow totalMonthlyCashFlowValue={totalMonthlyCashFlowValue} />
                             </div>
                             <div className='bg-gray-50 col-span-3 h-64 rounded-2xl'>
-                                <DashboardAcquisitionsLineChart loans={loans} />
+                                <DashboardAcquisitionsLineChart loans={filteredLoans} />
                             </div>
                             <div className='bg-gray-50 col-span-3 h-64 rounded-2xl'>
                                 <DashboardROIBarChart loans={filteredLoans} />

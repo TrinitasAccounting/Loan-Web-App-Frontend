@@ -75,7 +75,7 @@ export default function DashboardROIBarChart({ loans }: Props) {
 
 
         // Hard coded array with every year inside of it and ROI of 0
-        let allYears = [{ year: 2004, ROI: 0 }, { year: 2005, ROI: 0 }, { year: 2006, ROI: 0 }, { year: 2007, ROI: 0 }, { year: 2008, ROI: 0 }, { year: 2009, ROI: 0 }, { year: 2010, ROI: 0 }, { year: 2011, ROI: 0 }, { year: 2012, ROI: 0 }, { year: 2013, ROI: 0 }, { year: 2014, ROI: 0 }, { year: 2015, ROI: 0 }, { year: 2016, ROI: 0 }, { year: 2017, ROI: 0 }, { year: 2018, ROI: 0 }, { year: 2019, ROI: 0 }, { year: 2020, ROI: 0 }, { year: 2021, ROI: 0 }, { year: 2022, ROI: 0 }, { year: 2023, ROI: 0 },]
+        let allYears = [{ year: 2004, ROI: 0 }, { year: 2005, ROI: 0 }, { year: 2006, ROI: 0 }, { year: 2007, ROI: 0 }, { year: 2008, ROI: 0 }, { year: 2009, ROI: 0 }, { year: 2010, ROI: 0 }, { year: 2011, ROI: 0 }, { year: 2012, ROI: 0 }, { year: 2013, ROI: 0 }, { year: 2014, ROI: 0 }, { year: 2015, ROI: 0 }, { year: 2016, ROI: 0 }, { year: 2017, ROI: 0 }, { year: 2018, ROI: 0 }, { year: 2019, ROI: 0 }, { year: 2020, ROI: 0 }, { year: 2021, ROI: 0 }, { year: 2022, ROI: 0 }, { year: 2023, ROI: 0 }, { year: 2024, ROI: 0 }, { year: 2025, ROI: 0 },]
 
         // Defining our initial const values that we need
         let ROIArrayAllYears = []       // this will be our final output array that we add the object values into
@@ -94,7 +94,7 @@ export default function DashboardROIBarChart({ loans }: Props) {
                     countOfROIToDateValue++
                     sumOfROIToDateValue += arrayOfInterest[i]
                 }
-                ROIToDateValue = sumOfROIToDateValue / countOfROIToDateValue
+                ROIToDateValue = sumOfROIToDateValue / countOfROIToDateValue              //this is calculating our current overall average 
 
                 //ROI TO DATE will just be a running sum correct, and then divide by the count
                 // Then push the updated ROI average to testArray
@@ -111,7 +111,7 @@ export default function DashboardROIBarChart({ loans }: Props) {
     };
 
     let loanDataSetToDisplay = calculateCumulativeAverages();
-    console.log(loanDataSetToDisplay)
+    // console.log(loanDataSetToDisplay)
 
 
     return (
