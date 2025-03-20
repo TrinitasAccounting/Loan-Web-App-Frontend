@@ -6,15 +6,17 @@ type Props = {
 
 
 export default function LoanTable({ loans }: Props) {
+
+
     return (
         <div className="px-4 sm:px-6 lg:px-8">
             <div className="sm:flex sm:items-center">
-                <div className="sm:flex-auto">
+                {/* <div className="sm:flex-auto">
                     <h1 className="text-base font-semibold text-gray-900">Loans</h1>
                     <p className="mt-2 text-sm text-gray-700">
                         A table of placeholder stock market data that does not make any sense.
                     </p>
-                </div>
+                </div> */}
                 {/* <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                     <button
                         type="button"

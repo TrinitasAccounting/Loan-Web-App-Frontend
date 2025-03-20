@@ -20,6 +20,7 @@ import DashboardChart from './DashboardChart'
 import FilterByPool from './DashboardFilterComponents/FilterByPool'
 
 
+
 //Pages for navigation
 const navigation = [
     { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
@@ -33,7 +34,12 @@ const navigation = [
 
 //Props for Typescript (just placeholder of any currently)
 type Props = {
-    loans: any
+    loans: any,
+    // newFilteredLoans: any,
+    // setNewFilteredLoans: any
+    // setLoans: (value: React.SetStateAction<never[]>) => void
+    // filteredLoans: any,
+    // setFilteredLoans: React.Dispatch<any>
 }
 
 function classNames(...classes: any[]) {
@@ -46,10 +52,11 @@ function classNames(...classes: any[]) {
 
 export default function DashboardMainLayout({ loans }: Props) {
 
-    console.log(loans)
+
 
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [filteredLoans, setFilteredLoans] = useState<any>([])
+    // const [stateInput, setStateInput] = useState("")
     // const [selectedPool, setSelectedPool] = useState('All')
 
 
@@ -91,8 +98,7 @@ export default function DashboardMainLayout({ loans }: Props) {
 
 
 
-    //Filtering the table: states and functions_______________________________
-
+    //Filtering the table by Pool: states and functions__________________________________________________
     //// looping through our loans array to get all of the pool names in the database
     const allPools: { name: string; }[] = [
         { name: 'All' }
@@ -112,17 +118,71 @@ export default function DashboardMainLayout({ loans }: Props) {
 
     ////Filtering Loans array by the selectedPool anytime the selectedPool state is changed
     useEffect(() => {
+        // if (stateInput.length > 0) {
+        //     setFilteredLoans([...loans])
+        //     setSelectedPool(allPools[0])
+        // }
         if (selectedPool.name === 'All') {
             // const newLoanData = [...loans]
             setFilteredLoans([...loans])
+            // setNewFilteredLoans([...loans])
         }
         else {
             const newLoanData = loans.filter((loan: any) => {
                 return (loan.pool === selectedPool.name)
             })
-            setFilteredLoans(newLoanData)
+            setFilteredLoans([...newLoanData])
+            // setNewFilteredLoans([...newLoanData])
+            // console.log([...newLoanData])
         }
     }, [loans, selectedPool])
+
+    // console.log(newFilteredLoans)
+
+
+
+    //Filter the table by State: states and functions_____________________________________________________
+    // const [stateInput, setStateInput] = useState("")
+    // const [filteredLoansAndByState, setFilteredLoansAndByState] = useState<any>([])
+
+    // // setFilteredLoansAndByState([...filteredLoans])
+
+    // const handleChange = (event: any) => {
+    //     setStateInput(event.target.value)
+    // }
+
+    // const filterLoansByState = () => {
+
+    //     const newData = loans.filter((loan: any) => {
+    //         return (loan.state.toLowerCase().startsWith(stateInput.toLowerCase()))
+    //     })
+    //     // setSelectedPool(allPools[0])
+    //     setFilteredLoans([...loans])
+    //     setFilteredLoans(newData)
+
+    // }
+
+    // useEffect(() => {
+
+    //     filterLoansByState()
+    // }, [stateInput])
+    // filterLoansByState()
+    // const allStateNames: string[] = ['All', 'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']
+    // const [selectedState, setSelectedState] = useState(allStateNames[0])
+
+    // ////Filtering Loans array by the selectedState anytime the selectedState is changed
+    // useEffect(() => {
+    //     if (selectedState === 'All') {
+    //         // const newLoanData = [...filteredLoans]
+    //         setFilteredLoans([...filteredLoans])
+    //     }
+    //     else {
+    //         const newLoanData = loans.filter((loan: any) => {
+    //             return (loan.state === selectedState)
+    //         })
+    //         // setFilteredLoans(newLoanData)
+    //     }
+    // }, [selectedState])
 
 
 
@@ -279,27 +339,52 @@ export default function DashboardMainLayout({ loans }: Props) {
                                 <DashboardChart loans={loans} />
                             </div>
 
-                            <div className="col-span-3 grid  grid-cols-4 gap-12">
-                                <div className='bg-red-300 col-span-1 h-12 rounded-2xl'>
+                            {/* <div className="col-span-3 grid  grid-cols-4 gap-12">
+                                <div className='bg-gray-50 col-span-1 h-16 rounded-2xl'>
                                     <FilterByPool allPools={allPools} selectedPool={selectedPool} setSelectedPool={setSelectedPool} />
+                                </div>
+                                <div className='bg-red-300 col-span-1 h-12 rounded-2xl'>
+                                    <FilterByState stateInput={stateInput} setStateInput={setStateInput} handleSetStateInput={handleSetStateInput} />
+                                    <div>
+                                        <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
+                                            State
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                id="state"
+                                                name="state"
+                                                value={stateInput}
+                                                onChange={handleChange}
+                                                type="text"
+                                                placeholder="Search by State"
+                                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className='bg-red-300 col-span-1 h-12 rounded-2xl'></div>
                                 <div className='bg-red-300 col-span-1 h-12 rounded-2xl'></div>
-                                <div className='bg-red-300 col-span-1 h-12 rounded-2xl'></div>
+                            </div> */}
 
-                            </div>
+                            {/* LOANS TABLE SECTION */}
                             <div className='bg-gray-50 col-span-3 rounded-2xl'>
-                                <h2>All Transactions</h2>
+                                <div className=' grid grid-cols-3'>
+                                    <div className='bg-gray-50 col-span-2 px-8 pt-5'>
+                                        <h1 className='text-base font-semibold text-gray-900'>Loans</h1>
+                                        <p className="mt-2 text-sm text-gray-700">
+                                            A table to display all loans inside of our portfolio</p>
+                                    </div>
+                                    <div className='border-1 border-gray-300 col-span-1 mt-2 mr-2 rounded-xl'>
+                                        <FilterByPool allPools={allPools} selectedPool={selectedPool} setSelectedPool={setSelectedPool} />
+
+                                    </div>
+                                </div>
+
                                 <LoanTable loans={filteredLoans} />
                             </div>
 
+
                         </div>
-
-                        {/* <LoanTable loans={loans} /> */}
-
-
-
-
                     </div>
                 </main>
             </div>

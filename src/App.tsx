@@ -7,6 +7,7 @@ import DashboardMainLayout from "./components/DashboardMainLayout"
 function App() {
 
   const [loans, setLoans] = useState([])
+  // const [newFilteredLoans, setNewFilteredLoans] = useState<any>([])
 
 
   //GET fetch to backend, getting all loan data from our database__________________________________________________
@@ -16,7 +17,10 @@ function App() {
   const fetchLoans = async () => {
     try {
       await axios.get(myBaseURL)
-        .then(res => setLoans(res.data))
+        .then(res => {
+          setLoans(res.data)
+          // setNewFilteredLoans(res.data)
+        })
     } catch (error) {
       console.log(error)
     }
@@ -25,9 +29,6 @@ function App() {
   useEffect(() => {
     fetchLoans()
   }, [])
-
-
-
 
 
 

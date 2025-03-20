@@ -1,14 +1,12 @@
 
 
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
+import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import { ChevronUpDownIcon } from '@heroicons/react/16/solid'
 import { CheckIcon } from '@heroicons/react/20/solid'
 
 
 type Props = {
-    allPools: {
-        name: string;
-    }[],
+    allPools: { name: string; }[],
     selectedPool: any,
     setSelectedPool: any
 }
@@ -18,9 +16,9 @@ export default function FilterByPool({ allPools, selectedPool, setSelectedPool }
 
     return (
         <Listbox value={selectedPool} onChange={setSelectedPool}>
-            {/* <Label className="block text-sm/6 font-medium text-gray-900">Assigned to</Label> */}
-            <div className="relative mt-2">
-                <ListboxButton className="grid w-full cursor-default grid-cols-1 rounded-md bg-white py-1.5 pl-3 pr-2 text-left text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+            <Label className="block ml-3 text-sm/5 font-medium text-gray-900">Filter by Loan Pool</Label>
+            <div className="relative mt-1 ml-3">
+                <ListboxButton className="grid w-full sm:h-10 cursor-default grid-cols-1 rounded-xl py-1.5 pl-3 pr-2 text-left text-gray-900  -outline-offset-1 outline-gray-300 hover:bg-blue-50 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                     <span className="col-start-1 row-start-1 truncate pr-6">{selectedPool.name}</span>
                     <ChevronUpDownIcon
                         aria-hidden="true"
