@@ -33,14 +33,13 @@ export default function DashboardAcquisitionsLineChart({ loans }: Props) {
 
         // Defining our initial const values that we need
         let appraisalArrayAllYears = []       // this will be our final output array that we add the object values into
-        // let appraisalsToDateValue = 0;
         let sumOfAppraisalsToDateValue = 0;
-        // let countOfROIToDateValue = 0;
+
         //Looping through our array with every year, checking the yearlyData array to see if year exist, if not we append the constant value
         for (const item of allYears) {
 
             if (typeof yearlyData[item.year] !== 'undefined') {
-                // Update our to date average calculation (sum the item array / length of item array)
+                // Update our to date appraisal sum
                 let arrayOfInterest = yearlyData[item.year]
                 let sum = 0;
                 for (let i = 0; i < arrayOfInterest.length; i++) {

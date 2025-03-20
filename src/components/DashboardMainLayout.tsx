@@ -335,7 +335,7 @@ export default function DashboardMainLayout({ loans }: Props) {
                             <div className='bg-gray-50 col-span-1 h-32 rounded-2xl'>
                                 <TotalAppreciation totalAppreciatedValue={totalAppreciatedValue} />
                             </div>
-                            <div className='bg-red-200 col-span-1 h-32 rounded-2xl'>
+                            <div className='bg-gray-50 col-span-1 h-32 rounded-2xl'>
                                 <MonthlyCashFlow totalMonthlyCashFlowValue={totalMonthlyCashFlowValue} />
                             </div>
                             <div className='bg-gray-50 col-span-3 h-64 rounded-2xl'>

@@ -117,7 +117,11 @@ export default function DashboardROIBarChart({ loans }: Props) {
     return (
         <BarChart
             dataset={loanDataSetToDisplay}
-            xAxis={[{ scaleType: 'band', dataKey: 'year' }]}
+            xAxis={[{
+                scaleType: 'band',
+                dataKey: 'year',
+                categoryGapRatio: 0.4
+            }]}
             series={[
                 { dataKey: 'ROI', label: 'ROI', },
                 // { dataKey: 'SP', label: 'S&P ROI', },
