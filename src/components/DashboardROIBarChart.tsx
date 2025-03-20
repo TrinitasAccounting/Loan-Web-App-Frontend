@@ -9,39 +9,39 @@ type Props = {
     loans: any
 }
 
-const dataset = [
-    {
-        year: 2004,
-        CVROI: 59,
-        SP: 57,
+// const dataset = [
+//     {
+//         year: 2004,
+//         CVROI: 59,
+//         SP: 57,
 
-    },
-    {
-        year: 2005,
-        CVROI: 50,
-        SP: 52,
+//     },
+//     {
+//         year: 2005,
+//         CVROI: 50,
+//         SP: 52,
 
-    },
-    {
-        year: 2006,
-        CVROI: 47,
-        SP: 51,
+//     },
+//     {
+//         year: 2006,
+//         CVROI: 47,
+//         SP: 51,
 
-    },
-    {
-        year: 2007,
-        CVROI: 56,
-        SP: 54,
+//     },
+//     {
+//         year: 2007,
+//         CVROI: 56,
+//         SP: 54,
 
-    },
-    {
-        year: 2008,
-        CVROI: 57,
-        SP: 69,
+//     },
+//     {
+//         year: 2008,
+//         CVROI: 57,
+//         SP: 69,
 
-    },
+//     },
 
-];
+// ];
 
 const chartSetting = {
     yAxis: [
@@ -88,14 +88,12 @@ export default function DashboardROIBarChart({ loans }: Props) {
             if (typeof yearlyData[item.year] !== 'undefined') {
                 // Update our to date average calculation (sum the item array / length of item array)
                 let arrayOfInterest = yearlyData[item.year]
-                let length = arrayOfInterest.length
                 let sum = 0;
                 for (let i = 0; i < arrayOfInterest.length; i++) {
                     sum += arrayOfInterest[i]
                     countOfROIToDateValue++
                     sumOfROIToDateValue += arrayOfInterest[i]
                 }
-                let averageToAdd = sum / length
                 ROIToDateValue = sumOfROIToDateValue / countOfROIToDateValue
 
                 //ROI TO DATE will just be a running sum correct, and then divide by the count
@@ -113,7 +111,7 @@ export default function DashboardROIBarChart({ loans }: Props) {
     };
 
     let loanDataSetToDisplay = calculateCumulativeAverages();
-    // console.log(loanDataSetToDisplay)
+    console.log(loanDataSetToDisplay)
 
 
     return (
