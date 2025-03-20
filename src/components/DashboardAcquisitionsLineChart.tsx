@@ -213,7 +213,7 @@ export default function DashboardAcquisitionsLineChart({ loans }: Props) {
             series={[
                 {
                     id: 'Assets',
-                    label: 'Total Acquistions by Year',
+                    // label: 'Total Acquistions by Year',
                     dataKey: 'amount',
                     stack: 'total',
                     area: true,

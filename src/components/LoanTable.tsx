@@ -42,7 +42,7 @@ export default function LoanTable({ loans }: Props) {
                                         scope="col"
                                         className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
                                     >
-                                        pool
+                                        Pool
                                     </th>
                                     <th
                                         scope="col"
@@ -60,19 +60,55 @@ export default function LoanTable({ loans }: Props) {
                                         scope="col"
                                         className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
                                     >
-                                        original_balance
+                                        City
                                     </th>
                                     <th
                                         scope="col"
                                         className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
                                     >
-                                        appraisal
+                                        State
                                     </th>
                                     <th
                                         scope="col"
                                         className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
                                     >
-                                        interest
+                                        Zip Code
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                    >
+                                        Date
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                    >
+                                        Original Balance
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                    >
+                                        Remaining Balance
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                    >
+                                        Interest (%)
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                    >
+                                        Payment
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                    >
+                                        Appraisal
                                     </th>
                                     <th scope="col" className="relative whitespace-nowrap py-3.5 pl-3 pr-4 sm:pr-0">
                                         <span className="sr-only">Edit</span>
@@ -88,14 +124,20 @@ export default function LoanTable({ loans }: Props) {
                                         </td>
                                         <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-900">{loan.first_name}</td>
                                         <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{loan.last_name}</td>
+                                        <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{loan.city}</td>
+                                        <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{loan.state}</td>
+                                        <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{loan.zip_code}</td>
+                                        <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{loan.note_date}</td>
                                         <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{loan.original_balance}</td>
+                                        <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{loan.current_balance}</td>
+                                        <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{loan.interest} </td>
+                                        <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">$ {loan.payment}</td>
                                         <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{loan.appraisal}</td>
-                                        <td className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{loan.interest}</td>
-                                        <td className="relative whitespace-nowrap py-2 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                                        {/* <td className="relative whitespace-nowrap py-2 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                             <a href="#" className="text-indigo-600 hover:text-indigo-900">
                                                 Edit<span className="sr-only">, {loan.id}</span>
                                             </a>
-                                        </td>
+                                        </td> */}
                                     </tr>
                                 ))}
                             </tbody>

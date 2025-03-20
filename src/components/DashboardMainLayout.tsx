@@ -339,9 +339,11 @@ export default function DashboardMainLayout({ loans }: Props) {
                                 <MonthlyCashFlow totalMonthlyCashFlowValue={totalMonthlyCashFlowValue} />
                             </div>
                             <div className='bg-gray-50 col-span-3 h-64 rounded-2xl'>
+                                <h1 className='text-center text-gray-600 font-bold'>Total Assets in Portfolio by Year</h1>
                                 <DashboardAcquisitionsLineChart loans={filteredLoans} />
                             </div>
                             <div className='bg-gray-50 col-span-3 h-64 rounded-2xl'>
+                                <h1 className='text-center text-gray-600 font-bold'>Cumulative ROI (%) by Year</h1>
                                 <DashboardROIBarChart loans={filteredLoans} />
                             </div>
 

@@ -1,6 +1,7 @@
 
 
 
+import { AxisConfig, ChartsXAxisProps } from '@mui/x-charts';
 import { BarChart } from '@mui/x-charts/BarChart';
 // import { axisClasses } from '@mui/x-charts/ChartsAxis';
 // import { dataset, valueFormatter } from '../dataset/weather';
@@ -48,6 +49,10 @@ const chartSetting = {
         {
             label: 'Annual ROI (%)',
         },
+        {
+            min: 10,
+            max: 1000
+        }
     ],
     // width: 500,
     // height: 300,
@@ -114,17 +119,22 @@ export default function DashboardROIBarChart({ loans }: Props) {
     // console.log(loanDataSetToDisplay)
 
 
+
+
+
     return (
         <BarChart
             dataset={loanDataSetToDisplay}
             xAxis={[{
                 scaleType: 'band',
                 dataKey: 'year',
-                categoryGapRatio: 0.4
-            }]}
+                categoryGapRatio: 0.3,
+            } as AxisConfig<'band', string, ChartsXAxisProps>,]}
             series={[
-                { dataKey: 'ROI', label: 'ROI', },
-                // { dataKey: 'SP', label: 'S&P ROI', },
+                {
+                    dataKey: 'ROI',
+                    // label: 'ROI', 
+                },
 
             ]}
             {...chartSetting}
