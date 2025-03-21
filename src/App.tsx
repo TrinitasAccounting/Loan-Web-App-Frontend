@@ -6,8 +6,8 @@ import DashboardMainLayout from "./components/DashboardMainLayout"
 
 function App() {
 
+  //Initial state for all of our loans that were fetched from the database
   const [loans, setLoans] = useState([])
-
 
   //GET fetch to backend, getting all loan data from database (Note: same Postgres database, but different environment variables)___________________
   const isDevelopment = import.meta.env.MODE === 'development'
@@ -29,8 +29,6 @@ function App() {
   useEffect(() => {
     fetchLoans()
   }, [])
-
-
 
 
 

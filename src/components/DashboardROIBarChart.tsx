@@ -3,47 +3,13 @@
 
 import { AxisConfig, ChartsXAxisProps } from '@mui/x-charts';
 import { BarChart } from '@mui/x-charts/BarChart';
-// import { axisClasses } from '@mui/x-charts/ChartsAxis';
-// import { dataset, valueFormatter } from '../dataset/weather';
+
 
 type Props = {
     loans: any
 }
 
-// const dataset = [
-//     {
-//         year: 2004,
-//         CVROI: 59,
-//         SP: 57,
-
-//     },
-//     {
-//         year: 2005,
-//         CVROI: 50,
-//         SP: 52,
-
-//     },
-//     {
-//         year: 2006,
-//         CVROI: 47,
-//         SP: 51,
-
-//     },
-//     {
-//         year: 2007,
-//         CVROI: 56,
-//         SP: 54,
-
-//     },
-//     {
-//         year: 2008,
-//         CVROI: 57,
-//         SP: 69,
-
-//     },
-
-// ];
-
+// ChartSettings for the bar chart (MATERIAL UI CHARTS)
 const chartSetting = {
     yAxis: [
         {
@@ -54,18 +20,13 @@ const chartSetting = {
             max: 1000
         }
     ],
-    // width: 500,
-    // height: 300,
-    // sx: {
-    //     [`.${axisClasses.left} .${axisClasses.label}`]: {
-    //         transform: 'translate(-20px, 0)',
-    //     },
-    // },
 };
+
+
 
 export default function DashboardROIBarChart({ loans }: Props) {
 
-
+    // This is our function to dynamically calculate the data for the bar chart based on the loans array that is passed inside
     const calculateCumulativeAverages = () => {
         const yearlyData: any = {};
 
@@ -115,10 +76,8 @@ export default function DashboardROIBarChart({ loans }: Props) {
 
     };
 
+    // Data array that we are recieving in return from our function and then using in our charts
     let loanDataSetToDisplay = calculateCumulativeAverages();
-    // console.log(loanDataSetToDisplay)
-
-
 
 
 
@@ -133,9 +92,7 @@ export default function DashboardROIBarChart({ loans }: Props) {
             series={[
                 {
                     dataKey: 'ROI',
-                    // label: 'ROI', 
                 },
-
             ]}
             {...chartSetting}
         />

@@ -7,7 +7,6 @@ type Props = {
 export default function TotalAppreciation({ totalAppreciatedValue }: Props) {
     return (
         <div>
-
             <dl className="w-full h-full ">
                 <div className="grid grid-flow-col grid-rows-3 gap-1">
                     <div className="col-span-2 mt-3  place-content-center justify-items-center">

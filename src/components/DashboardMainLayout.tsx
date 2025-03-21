@@ -55,7 +55,7 @@ export default function DashboardMainLayout({ loans }: Props) {
     const [balanceInput, setBalanceInput] = useState("")
     const [yearInput, setYearInput] = useState("")
 
-    //Filter the table by State: states and functions_________________________________________________________________
+    //Filter the table by STATE: states and functions_________________________________________________________________
 
     const handleStateChange = (event: any) => {
         setStateInput(event.target.value)
@@ -66,7 +66,7 @@ export default function DashboardMainLayout({ loans }: Props) {
     })
 
 
-    //Filtering the table by balance: states and functions ____________________________________________________________
+    //Filtering the table by BALANCE: states and functions ____________________________________________________________
     const handleBalanceChange = (event: any) => {
         setBalanceInput(event.target.value)
     }
@@ -76,7 +76,7 @@ export default function DashboardMainLayout({ loans }: Props) {
     })
 
 
-    //Filtering the table by note_date: states and functions ____________________________________________________________
+    //Filtering the table by NOTE_DATE: states and functions ____________________________________________________________
     const handleYearChange = (event: any) => {
         setYearInput(event.target.value)
     }
@@ -132,11 +132,12 @@ export default function DashboardMainLayout({ loans }: Props) {
 
 
 
-    //Filtering the table by Pool: states and functions__________________________________________________
+    //Filtering the table by POOL: states and functions__________________________________________________
     //// looping through our loans array to get all of the pool names in the database
     const allPools: { name: string; }[] = [
         { name: 'All' }
     ]
+    //// Loops through the database and extracts every Pool name, adding it to our allPools array of objects. 
     const getAllPoolNames = (loans: any) => {
         for (let i = 0; i < loans.length; i++) {
             const foundName = allPools.find(obj => obj.name === loans[i].pool)
@@ -145,9 +146,10 @@ export default function DashboardMainLayout({ loans }: Props) {
             }
         }
     }
+    ////Runnign the function to add all PoolNames to our array  (Optimization: probably can use a useEffect here to run this only once, but it works just fine for now. )
     getAllPoolNames(loans)
 
-    // //the state for our filter by pool dropdown (has to be assigend here so we can use the first idnex as the initial state value)
+    ////the state for our filter by pool dropdown (has to be assigend here so we can use the first index of the allPools array as the initial state value)
     const [selectedPool, setSelectedPool] = useState(allPools[0])
 
     ////Filtering Loans array by the selectedPool anytime the selectedPool state is changed
@@ -170,8 +172,6 @@ export default function DashboardMainLayout({ loans }: Props) {
             // console.log([...newLoanData])
         }
     }, [loans, selectedPool])
-
-
 
 
 
@@ -301,29 +301,30 @@ export default function DashboardMainLayout({ loans }: Props) {
                 <main className="py-10 lg:pl-72 bg-gray-200">
                     <div className="px-4 sm:px-6 lg:px-8">
                         <div className="grid  grid-cols-3 gap-6">
+
+                            {/* PORTFOLIO ASSETS BOX */}
                             <div className='bg-gray-50 col-span-1 h-32 rounded-2xl'>
                                 <TotalAssets totalAssetValue={totalAssetValue} />
                             </div>
 
+                            {/* ROI FROM APPRECIATION BOX */}
                             <div className='bg-gray-50 col-span-1 h-32 rounded-2xl'>
-
                                 <TotalAppreciation totalAppreciatedValue={totalAppreciatedValue} />
                             </div>
-                            <div className='bg-gray-50 col-span-1 h-32 rounded-2xl'>
 
+                            {/* MONTHLY CASH FLOW BOX */}
+                            <div className='bg-gray-50 col-span-1 h-32 rounded-2xl'>
                                 <MonthlyCashFlow totalMonthlyCashFlowValue={totalMonthlyCashFlowValue} />
                             </div>
 
                             {/* TOTAL ASSETS IN PORTFOLIO LINE CHART */}
                             <div className='bg-gray-50 col-span-3 h-64 rounded-2xl pl-2'>
-
                                 <h1 className='text-center text-gray-600 font-bold'>Total Assets in Portfolio by Year</h1>
                                 <DashboardAcquisitionsLineChart loans={filteredLoansWithStateBalanceYear} />
                             </div>
 
                             {/* CUMULATIVE ROI % BAR CHART */}
                             <div className='bg-gray-50 col-span-3 h-64 rounded-2xl pl-2'>
-
                                 <h1 className='text-center text-gray-600 font-bold'>Cumulative ROI (%) by Year</h1>
                                 <DashboardROIBarChart loans={filteredLoansWithStateBalanceYear} />
                             </div>
@@ -331,7 +332,11 @@ export default function DashboardMainLayout({ loans }: Props) {
 
                             {/* LOANS TABLE SECTION */}
                             <div className='bg-gray-50 col-span-3 rounded-2xl'>
+
+                                {/* TABLE HEADER */}
                                 <div className=' grid grid-cols-6'>
+
+                                    {/* TABLE TITLE */}
                                     <div className='bg-gray-50 col-span-2 px-8 pt-5'>
                                         <h1 className='text-base font-semibold text-gray-900'>Loans</h1>
                                         <p className="mt-2 text-sm text-gray-700">

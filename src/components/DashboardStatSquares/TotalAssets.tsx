@@ -7,7 +7,6 @@ type Props = {
 
 
 
-
 export default function TotalAssets({ totalAssetValue }: Props) {
     return (
         <div>
