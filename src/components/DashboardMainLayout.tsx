@@ -154,22 +154,16 @@ export default function DashboardMainLayout({ loans }: Props) {
 
     ////Filtering Loans array by the selectedPool anytime the selectedPool state is changed
     useEffect(() => {
-        // if (stateInput.length > 0) {
-        //     setFilteredLoans([...loans])
-        //     setSelectedPool(allPools[0])
-        // }
+
         if (selectedPool.name === 'All') {
-            // const newLoanData = [...loans]
             setFilteredLoans([...loans])
-            // setNewFilteredLoans([...loans])
+
         }
         else {
             const newLoanData = loans.filter((loan: any) => {
                 return (loan.pool === selectedPool.name)
             })
             setFilteredLoans([...newLoanData])
-            // setNewFilteredLoans([...newLoanData])
-            // console.log([...newLoanData])
         }
     }, [loans, selectedPool])
 
